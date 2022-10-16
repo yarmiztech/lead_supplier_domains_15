@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_comparision_pq,comparision.pq,model_comparision_pq,,1,1,1,1
+access_comparision_pq_lines,comparision.pq.lines,model_comparision_pq_lines,,1,1,1,1

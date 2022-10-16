@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    <record id="enquiry_add_domain" model="ir.ui.view">-->
+    <!--        <field name="name">enquiry.add</field>-->
+    <!--        <field name="model">crm.lead</field>-->
+    <!--        <field name="inherit_id" ref="alshab_custom.enquiry_add"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <xpath expr="//field[@name='supplier_name']" position="replace">-->
+    <!--                <field name="supplier_name" widget="many2many_tags" options="{'no_create': True}"/>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
+    <!--    <record id="enquiry_add_domain" model="ir.ui.view">-->
+    <!--        <field name="name">enquiry.add</field>-->
+    <!--        <field name="model">crm.lead</field>-->
+    <!--        <field name="inherit_id" ref="alshab_custom.enquiry_add"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <xpath expr="//field[@name='supplier_name']" position="replace">-->
+    <!--                <field name="supplier_name" widget="many2many_tags" options="{'no_create': True}"/>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+
+        <record model="ir.ui.view" id="lead_sales_flow_new_reg">
+            <field name="name">crm.lead.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="rig"/>
+                    <field name="pq_count" invisible="1"/>
+                    <field name="crm_checked" invisible="1"/>
+                </xpath>
+                <!--            <xpath expr="//button[@name='action_set_won_rainbowman']" position="before">-->
+                <!--                <button name="action_rfq_send" string="Send E-mail/PDF/Excel" type="object" context="{'send_rfq':True}"-->
+                <!--                        class="oe_highlight"/>-->
+                <!--            </xpath>-->
+                <xpath expr="//button[@name='action_pq']" position="replace">
+                    <button name="action_pq_compare" string="RFQ Comparision" class="btn btn-sm btn-success"
+                            type="object" />
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="crm_form_view_leads_enquiry_inherit">
+            <field name="name">crm.lead.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="name" readonly="1"/>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="crm_enquiry_demos">
+            <field name="name">crm.lead.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm_enquirys_lead.crm_case_form_view_leads_enquiry"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='enquiry_lines']/tree//field[@name='part_number']" position="replace">
+                    <field name="part_number" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='enquiry_lines']/tree//field[@name='product_id']" position="before">
+                    <field name="categ_id" optional="show"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='enquiry_lines']/tree//field[@c_mfrname='product_id']" position="after">
+                    <field name="part_number" optional="show"/>
+                    <field name="part_number_mfr" optional="show"/>
+                    <field name="c_mfr"/>
+                    <field name="c_pn" optional="show"/>
+                </xpath>
+                <!--            <xpath expr="//field[@name='enquiry_lines']/tree//field[@name='product_id']" position="after">-->
+                <!--          -->
+                <!--&lt;!&ndash;                <field name="manual_desc"/>&ndash;&gt;-->
+                <!--            </xpath>-->
+            </field>
+        </record>
+
+
+    <record id="sales_orders_form_inherit" model="ir.ui.view">
+        <field name="name">Sale Inherit</field>
+        <field name="model">sales.orders</field>
+        <field name="inherit_id" ref="demoerp_sales_flow_s15.sales_orders_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_reference']" position="after">
+                <field name="rig"/>
+            </xpath>
+            <xpath expr="//field[@name='sale_order_lines']/tree//field[@name='product_id']" position="after">
+                <field name="categ_id" optional="show"/>
+                <field name="c_mfr" optional="show"/>
+                <field name="c_pn" optional="show"/>
+                <field name="on_hand" invisible="1"/>
+                <field name="part_number_mfr" optional="show"/>
+                <field name="reference_number" optional="show"/>
+                <field name="remarks" optional="show"/>
+                <field name="availability" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="pending_enquiry_free" model="ir.ui.view">
+        <field name="name">pending.enquiry.tree</field>
+        <field name="model">pending.enquiry</field>
+        <field name="inherit_id" ref="demoerp_sales_flow_s15.pending_enquiry_free"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='crm_lead_id']" position="after">
+                <field name="partner_id"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="inherit_item_desc_mfr" model="ir.ui.view">
+        <field name="name">product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_code']" position="after">
+                <field name="item_description"/>
+                <field name="item_description_ar"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_order_form_categ" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="before">
+                <field name="categ_id" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="after">
+                <field name="on_hand" optional="show"/>
+                <field name="c_mfr" optional="show"/>
+                <field name="c_pn" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="inter_branch_transfer_forms_rig" model="ir.ui.view">
+        <field name="model">alshab.inventorys</field>
+        <field name="inherit_id" ref="demoerp_sales_flow_s15.inter_branch_transfer_forms"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='branch_id']" position="after">
+                <field name="rig"/>
+            </xpath>
+            <xpath expr="//field[@name='inter_companys_lines']/tree//field[@name='product_id']" position="after">
+                <field name="c_mfr" optional="show" invisible="1"/>
+                <field name="c_pn" optional="show" invisible="1"/>
+                <field name="categ_id" optional="show" invisible="1"/>
+                <field name="part_number_mfr" optional="show"/>
+                <field name="reference_number" optional="show" invisible="1"/>
+                <field name="remarks" optional="show" invisible="1"/>
+                <field name="availability" optional="show" invisible="1"/>
+                <field name="part_number" optional="show"/>
+
+            </xpath>
+
+
+        </field>
+    </record>
+
+
+</odoo>
